@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.main {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 500px;
+  margin: 0 auto
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 0 0;
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.time-container {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 17.5px;
+  font-size: 22px;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.cards-container {
+  display: flex;
+  margin: 10px 0 0 0;
+  gap: 10px;
+}
