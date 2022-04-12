@@ -5,5 +5,6 @@ import link4 from '../images/cards/albert-einstein.png'
 import link5 from '../images/cards/cpnjack.png'
 import link6 from '../images/cards/neo.png'
 import link7 from '../images/cards/jobs.png'
+import link8 from '../images/cards/ninja.png'
 
-export {link1, link2, link3, link4, link5, link6, link7}
+export {link1, link2, link3, link4, link5, link6, link7, link8}

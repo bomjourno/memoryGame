@@ -24,7 +24,7 @@ code {
 .header {
   display: flex;
   align-items: center;
-  margin: 20px 0 0 0;
+  margin: 50px 0 0 0;
   padding: 20px;
   border: 1px solid gray;
   border-radius: 10px;
@@ -40,7 +40,13 @@ code {
 
 .cards-container {
   display: flex;
+  justify-content: space-evenly;
+  max-width: 400px;
   flex-wrap: wrap;
-  margin: 10px 0 0 0;
-  gap: 10px;
+  margin: 30px 0 0 0;
+  gap: 20px;
+}
+
+.dis {
+  pointer-events: none;
 }

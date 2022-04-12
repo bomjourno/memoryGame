@@ -1,17 +1,30 @@
-import React from 'react';
+import { render } from '@testing-library/react';
+import React, { useEffect } from 'react';
 import './Card.css'
 
-function Card({handleFontBack, id, src, alt, front, cardId}) {
+function Card({handleFontBack, id, src, alt, front, count, setCount}) {
   const classes = [];
+
+
 
   if(front) {
     classes.push('done');
   }
 
+
+  // console.log()
+
+  function handleSubmit() {
+    handleFontBack(id)
+    setTimeout(() => {
+      handleFontBack(id);
+      setCount(count-2)
+    }, 3000)
+  }
+
   return (
     <div className='hidden'>
-      {/* <img onClick={() => data.handleFontBack(id)} className={`card-item ${classes.join(' ')}`} id={data.id} src={src} alt={alt} /> */}
-      <img onClick={() => handleFontBack(id)} className={`card-item ${classes.join(' ')}`} id={id} src={src} alt={alt} />
+      <img onClick={handleSubmit} className={`card-item ${classes.join(' ')}`} id={id} src={src} alt={alt} />
     </div>
 
   )
