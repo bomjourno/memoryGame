@@ -1,11 +1,13 @@
 # Memory Game
 
-Игра для развития памяти
+A game for memory development
 
 ## How to play?
 
-На доске 4х4 есть 16 парных карточек с разными изображениями. Для победы достаточно нажать кнопку старта (секундомер запускается)
-и найти все пары карт. Да, все верно, игра на время - чтобы вы могли путем стабильных игр развить (или проверить) свою память, и видеть свой прогресс на лицо = посредством уменьшающегося времени на одну партию игры из раза в раз :)
+There are 16 paired cards with different images on the 4x4 board. To win, just press the start button (the stopwatch starts) and find all pairs of cards. Yes, that's right, with stopwatch - so that you can improve (or test) your memory through stable games, and see your progress = by decreasing the total time for one game :)
+
+## Built with
+Bootstrapped with Create React App.
 
 ## Installation
 
@@ -15,7 +17,7 @@ git clone https://github.com/bomjourno/memoryGame.git
 
 ### Install dependencies
 
-cd memoryGame
+cd 02_game
 
 npm install
 
