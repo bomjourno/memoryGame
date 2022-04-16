@@ -50,16 +50,6 @@ function App() {
     );
   }
 
-  // cardsData.forEach(item => {
-  //   let count = 0;
-  //   if(item.front.toString() === 'true') {
-  //     count ++
-  //     // console.log(count)
-  //     // if(count >)
-  //   }
-  //   // console.log(item.front.toString())
-  // })
-
   function randArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -75,6 +65,7 @@ function App() {
   }, []);
 
   const [count, setCount] = React.useState(0);
+  const [stateCard, setStateCard] = React.useState(false);
   let [status, setStatus] = React.useState(false);
 
   useEffect(() => {
@@ -83,6 +74,11 @@ function App() {
       setStatus(status = !status)
     }
     console.log(count)
+    // cardsData.forEach(item => {
+    //   if(item.id) {
+    //     console.log(item)
+    //   }
+    // })
   }, [cardsData])
 
   let dis = [];
@@ -98,7 +94,8 @@ function App() {
     }
   })
 
-  prom.then((res) => setTimeout(() => setStatus(res = !res), 3000)).catch((err) => err.status)
+  prom.then((res) => setTimeout(() => setStatus(res = !res), 4000)).catch((err) => err.status)
+
 
 
   // const prom = new Promise((resolve, reject) => {
