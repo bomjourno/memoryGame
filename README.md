@@ -17,7 +17,7 @@ git clone https://github.com/bomjourno/memoryGame.git
 
 ### Install dependencies
 
-cd 02_game
+cd memoryGame
 
 npm install
 
