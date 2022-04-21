@@ -6,7 +6,7 @@
   transition: opacity .5s;
 }
 
-.done {
+.show {
   opacity: 1;
 }
 
@@ -15,8 +15,4 @@
   height: 70px;
   border: 1px solid;
   border-radius: 10px;
-}
-
-.hi {
-  opacity: 0;
 }

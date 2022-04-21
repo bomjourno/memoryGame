@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card/Card";
 import Timer from "../components/Timer.js/Timer";
+import {shuffle} from '../utils/shuffle'
 import {
   link1,
   link2,
@@ -11,6 +12,7 @@ import {
   link7,
   link8,
 } from "../utils/cards-images";
+import classNames from "classnames";
 
 function App() {
   //объект с классами кнопок
@@ -20,55 +22,31 @@ function App() {
     results: "results",
   };
 
+  const MAX_USER_POKE_COUNT = 2;
+
   //стартовый массив карточек на доске
   const [cardsData, setCardsData] = useState([
-    { id: 1, alt: "Spider-man", src: link1, front: false },
-    { id: 2, alt: "Spider-man", src: link1, front: false },
-    { id: 3, alt: "Batman", src: link2, front: false },
-    { id: 4, alt: "Batman", src: link2, front: false },
-    { id: 5, alt: "Deadpool", src: link3, front: false },
-    { id: 6, alt: "Deadpool", src: link3, front: false },
-    { id: 7, alt: "Albert-Einstein", src: link4, front: false },
-    { id: 8, alt: "Albert-Einstein", src: link4, front: false },
-    { id: 9, alt: "Jack Sparrow", src: link5, front: false },
-    { id: 10, alt: "Jack Sparrow", src: link5, front: false },
-    { id: 11, alt: "Neo", src: link6, front: false },
-    { id: 12, alt: "Neo", src: link6, front: false },
-    { id: 13, alt: "Steve Jobs", src: link7, front: false },
-    { id: 14, alt: "Steve Jobs", src: link7, front: false },
-    { id: 15, alt: "Ninja", src: link8, front: false },
-    { id: 16, alt: "Ninja", src: link8, front: false },
+    { id: 1, alt: "Spider-man", src: link1},
+    { id: 2, alt: "Spider-man", src: link1},
+    { id: 3, alt: "Batman", src: link2},
+    { id: 4, alt: "Batman", src: link2},
+    { id: 5, alt: "Deadpool", src: link3},
+    { id: 6, alt: "Deadpool", src: link3},
+    { id: 7, alt: "Albert-Einstein", src: link4},
+    { id: 8, alt: "Albert-Einstein", src: link4},
+    { id: 9, alt: "Jack Sparrow", src: link5},
+    { id: 10, alt: "Jack Sparrow", src: link5},
+    { id: 11, alt: "Neo", src: link6},
+    { id: 12, alt: "Neo", src: link6},
+    { id: 13, alt: "Steve Jobs", src: link7},
+    { id: 14, alt: "Steve Jobs", src: link7},
+    { id: 15, alt: "Ninja", src: link8},
+    { id: 16, alt: "Ninja", src: link8},
   ]);
 
-
-  //разворачиваем карту лицом вверх по id
-  function handleFontBack(id) {
-    setCardsData(
-      cardsData.map((card) => {
-        if (card.id === id) {
-          card.front = !card.front;
-        }
-        return card;
-      })
-    );
-  }
-
-  //готовим функцию, которая рандомит позиции элементов входящего массива (чтобы каждый раз при новой игре менялось местоположение карт)
-  function randArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
-
-
-  //один раз в самом начале игры рандомим позиции элементов массива
-  //пока есть ошибка - функция сработает только при первом клике на карту
+  //Перемешиваем массив карт
   useEffect(() => {
-    setCardsData(randArray(cardsData));
+    setCardsData(shuffle(cardsData));
   }, []);
 
   //через count считаем количество тыков на карты.
@@ -77,28 +55,28 @@ function App() {
   //После двух тыков блокируем "тык" на другие карты посредством status
   let [status, setStatus] = React.useState(false);
 
-  //добавляем в новый массив те карты, которые тыкнули (чтобы потом сравнивать тыкнутые карты между собой)
+  //добавляем в новый массив те карты, которые тыкнули
   let [a, setA] = useState([])
 
-  //если больше 2 тыков на карты сделано, то заблокировать возможность тыка на другие карты
+  //блокируем возможность тыка на другие карты
   useEffect(() => {
-    setCount(count + 1)
-    if(count === 2) {
-      setStatus(status = !status)
+    if(count === MAX_USER_POKE_COUNT) {
+      setStatus(!status)
     }
+  }, [count])
+  // useEffect(() => {
+  //   setCount(count + USER_POKE_COUNT)
+  //   if(count === MAX_USER_POKE_COUNT) {
+  //     setStatus(!status)
+  //   }
 
-    if(cardsData.find(item => item.front === true)) {
-      let b = cardsData.find(item => item.front === true);
-      setA([b, ...a ]) //работает через пень колоду, переделать
-      console.log(a)
-    }
+  //   if(cardsData.find(item => item.front === true)) {
+  //     let b = cardsData.find(item => item.front === true);
+  //     setA([b, ...a ]) //работает через пень колоду, переделать
+  //     console.log(a)
+  //   }
 
-  }, [cardsData])
-
-  let dis = [];
-  if (status) {
-    dis.push("dis");
-  }
+  // }, [cardsData])
 
   const prom = new Promise((resolve, reject) => {
     if(status) {
@@ -108,56 +86,51 @@ function App() {
     }
   })
 
-  prom.then((res) => setTimeout(() => setStatus(res = !res), 4000)).catch((err) => err.status)
+  prom.then((res) => setTimeout(() => setStatus(!res), 4000)).catch((err) => err.status)
 
   //сравниваем тыкнутые карты между собой, и если они одинаковые, то оставляем карты открытыми
   //остановился пока на этом этапе
-  useEffect(() => {
-    if(a.length > 1) {
-      // if(a[0].alt === a[1].alt) {
-      //   let card = cardsData.find(item => item.alt === a[0].alt)
-      //   let card1 = cardsData.find(item => item.alt === a[1].alt)
-      //   console.log(card)
-      //   setCardsData(cardsData.map(item => {
-      //     if(item.alt === card.alt) {
-      //       item.front = true
-      //     }
-      //     return item
-      //   }))
-      //   setCardsData(cardsData.map(item => {
-      //     if(item.alt === card1.alt) {
-      //       item.front = true
-      //     }
-      //     return item
-      //   }))
-      // }
-    }
-  }, [a])
+  // useEffect(() => {
+  //   if(a.length > 1) {
+  //     if(a[0].alt === a[1].alt) {
+  //       let card = cardsData.find(item => item.alt === a[0].alt)
+  //       let card1 = cardsData.find(item => item.alt === a[1].alt)
+  //       console.log(card)
+  //       setCardsData(cardsData.map(item => {
+  //         if(item.alt === card.alt) {
+  //           item.front = true
+  //         }
+  //         return item
+  //       }))
+  //       setCardsData(cardsData.map(item => {
+  //         if(item.alt === card1.alt) {
+  //           item.front = true
+  //         }
+  //         return item
+  //       }))
+  //     }
+  //   }
+  // }, [a])
 
 
-  if(a.length > 2) {
-    setA(a = [])
-  }
-
-
-
+  // if(a.length > 2) {
+  //   setA(a = [])
+  // }
 
   return (
     <div className="main">
       <header>
         <Timer buttonsClass={buttonsClass} />
       </header>
-      <section className={`cards-container ${dis.join(" ")}`}>
+      <section className={classNames('cards-container', {disable: status})}>
         {cardsData.map((card, index) => {
           return (
             <Card
               count={count}
               setCount={setCount}
-              front={card.front}
               src={card.src}
               alt={card.alt}
               id={card.id}
-              handleFontBack={handleFontBack}
               key={index}
             />
           );

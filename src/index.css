@@ -21,23 +21,6 @@ code {
   margin: 0 auto
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  margin: 50px 0 0 0;
-  padding: 20px;
-  border: 1px solid gray;
-  border-radius: 10px;
-}
-
-.time-container {
-  font-family: 'Courier New', Courier, monospace;
-  padding: 17.5px;
-  font-size: 22px;
-  border: 1px solid gray;
-  border-radius: 10px;
-}
-
 .cards-container {
   display: flex;
   justify-content: space-evenly;
@@ -47,6 +30,6 @@ code {
   gap: 20px;
 }
 
-.dis {
+.disable {
   pointer-events: none;
 }
