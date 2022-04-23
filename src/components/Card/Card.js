@@ -2,9 +2,10 @@ import classNames from 'classnames';
 import React, {useEffect, useState} from 'react';
 import './Card.css'
 
-function Card({ id, src, alt, count, setCount}) {
+function Card({ id, src, count, setCount, card, handleCardClick, alt, front}) {
 
-  const [frontCard, setFrontCard] = useState()
+  const [frontCard, setFrontCard] = useState(false)
+  // const [frontCard, setFrontCard] = useState(false)
   const USER_POKE_COUNT = 1;
   const MAX_USER_POKE_COUNT = 2;
 
@@ -18,18 +19,23 @@ function Card({ id, src, alt, count, setCount}) {
 
   useEffect(() => {
     if(count === MAX_USER_POKE_COUNT) {
-      setCount(count=0) //обнуляем количество "тыков" на карту
+      setCount(0) //обнуляем количество "тыков" на карту
     }
   }, [count])
 
+  function handleClick() {
+    handleCardClick(card)
+  }
+
   return (
-    <div className='hidden'>
+    <div className={classNames('hidden', {foundCard: front})}>
       <img onClick={()=> {
         setFrontCard(!frontCard);
-        setCount(count + USER_POKE_COUNT)
-      }} className={classNames('card-item', {show: frontCard})} id={id} src={src} alt={alt} />
+        setCount(count + USER_POKE_COUNT);
+        handleClick();
+        // handleFrontCard();
+      }} className={classNames('card-item', {show: frontCard, disabled: front})} id={id} src={src} alt={alt} />
     </div>
-
   )
 }
 
