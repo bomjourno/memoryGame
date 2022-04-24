@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Button from "../Button/Button";
-import useSwitcher from "../hooks/useSwitcher";
+import {Button} from "../Button/Button";
+import {useSwitcher} from "../hooks/useSwitcher";
 import './Timer.css'
 
-const Timer = ({ buttonsClass }) => {
+export const Timer = () => {
   const [time, setTime] = useState(0);
-  const [isActive, start, pause] = useSwitcher(false)
+  const [isActive, start, pause, switcher] = useSwitcher(false)
 
   useEffect(() => {
     let timerId = null;
@@ -23,9 +23,9 @@ const Timer = ({ buttonsClass }) => {
 
   return (
     <div className="header">
-      <Button handleClick={start} button={buttonsClass.start} />
-      <Button handleClick={pause} button={buttonsClass.pause} />
-      <Button button={buttonsClass.results} />
+      <Button handleClick={start} button={'start'} />
+      <Button handleClick={pause} button={'pause'} />
+      <Button button={'results'} />
       <div className="time-container">
         <span>{("0" + (Math.floor(time / 3600) % 60)).slice(-2)}</span>:
         <span>{("0" + (Math.floor(time / 60) % 60)).slice(-2)}</span>:
@@ -34,5 +34,3 @@ const Timer = ({ buttonsClass }) => {
     </div>
   );
 };
-
-export default Timer;

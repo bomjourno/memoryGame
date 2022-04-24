@@ -1,10 +1,10 @@
-import link1 from '../images/cards/spiderman.png'
-import link2 from '../images/cards/batman.png'
-import link3 from '../images/cards/deadpool.png'
-import link4 from '../images/cards/albert-einstein.png'
-import link5 from '../images/cards/cpnjack.png'
-import link6 from '../images/cards/neo.png'
-import link7 from '../images/cards/jobs.png'
-import link8 from '../images/cards/ninja.png'
+import spidermanImage from '../images/cards/spiderman.png'
+import batmanImage from '../images/cards/batman.png'
+import deadpoolImage from '../images/cards/deadpool.png'
+import albertEinsteinImage from '../images/cards/albert-einstein.png'
+import cpnjackImage from '../images/cards/cpnjack.png'
+import neoImage from '../images/cards/neo.png'
+import jobsImage from '../images/cards/jobs.png'
+import ninjaImage from '../images/cards/ninja.png'
 
-export {link1, link2, link3, link4, link5, link6, link7, link8}
+export {spidermanImage, batmanImage, deadpoolImage, albertEinsteinImage, cpnjackImage, neoImage, jobsImage, ninjaImage}
