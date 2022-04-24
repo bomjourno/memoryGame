@@ -3,17 +3,22 @@ import {Button} from "../Button/Button";
 import {useSwitcher} from "../hooks/useSwitcher";
 import './Timer.css'
 
-export const Timer = () => {
+export const Timer = ({boardStatusSwitcher}) => {
   const [time, setTime] = useState(0);
   const [isActive, start, pause, switcher] = useSwitcher(false);
-  const ONE_SECOND = 1000;
+  const ONE_SECOND = 1;
+  const ONE_SECOND_IN_MILLISECONDS = 1000
+
+  useEffect(() => {
+    boardStatusSwitcher();
+  }, [isActive])
 
   useEffect(() => {
     let timerId = null;
     if(isActive) {
       timerId = setInterval(() => {
         setTime(time => time+ONE_SECOND)
-      }, ONE_SECOND)
+      }, ONE_SECOND_IN_MILLISECONDS)
     } else {
       clearInterval(timerId)
     }
