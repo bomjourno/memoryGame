@@ -5,14 +5,15 @@ import './Timer.css'
 
 export const Timer = () => {
   const [time, setTime] = useState(0);
-  const [isActive, start, pause, switcher] = useSwitcher(false)
+  const [isActive, start, pause, switcher] = useSwitcher(false);
+  const ONE_SECOND = 1000;
 
   useEffect(() => {
     let timerId = null;
     if(isActive) {
       timerId = setInterval(() => {
-        setTime(time => time+1)
-      }, 1000)
+        setTime(time => time+ONE_SECOND)
+      }, ONE_SECOND)
     } else {
       clearInterval(timerId)
     }

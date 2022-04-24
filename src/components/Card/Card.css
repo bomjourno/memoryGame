@@ -24,3 +24,8 @@
 .foundCard {
   background-color: gray;
 }
+
+/* блокировки карты после ее выбора, чтобы нельзя было выбрать одну и ту же карту 2раза*/
+.cursor {
+  pointer-events: none;
+}

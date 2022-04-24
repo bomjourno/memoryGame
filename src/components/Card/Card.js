@@ -33,7 +33,7 @@ export function Card({ card, count, setCount, handleCardClick}) {
     <div className={classNames('hidden', {foundCard: card.front})}>
       <img onClick={()=> {
         handleClick();
-      }} className={classNames('card-item', {show: frontCard, disabled: card.front})} id={card.id} src={card.src} alt={card.alt} />
+      }} className={classNames('card-item', {show: frontCard, disabled: card.front, cursor: frontCard})} id={card.id} src={card.src} alt={card.alt} />
     </div>
   )
 }

@@ -30,6 +30,10 @@ code {
   gap: 30px;
 }
 
-.disable {
+.boardStatusBeforeGame {
+  pointer-events: none;
+}
+
+.boardStatusInGame {
   pointer-events: none;
 }
