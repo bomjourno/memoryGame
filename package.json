@@ -1,6 +1,7 @@
 {
   "name": "02_game",
   "version": "0.1.0",
+  "homepage": "https://bomjourno.github.io/memoryGame/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
