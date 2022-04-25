@@ -10,7 +10,7 @@ function App() {
   const ONE_FOUND_CARD = 1;
   const ALL_CARDS = 16;
   const MAX_USER_POKE_COUNT = 2;
-  const UNLOCK_TIME_TO_POKE = 4000;
+  const UNLOCK_TIME_TO_POKE = 1000;
 
   //общий стейт для всей доски (block or unblock board)
   const [boardStatus, boardEnable, boardDisable, boardStatusSwitcher] = useSwitcher(true)

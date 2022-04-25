@@ -7,7 +7,7 @@ export function Card({gameInProgress, card, count, setCount, handleCardClick }) 
   const [frontCard, setFrontCard] = useState(false)
   const USER_POKE_COUNT = 1;
   const MAX_USER_POKE_COUNT = 2;
-  const TURN_AROUND_CARD = 3000;
+  const TURN_AROUND_CARD = 1000;
 
   useEffect(() => {
     if(frontCard) {
