@@ -117,7 +117,7 @@ function App() {
       <header>
         <Timer setGameStatus={setGameWin} stopWatch={stopWatchIsActive} start={startStopWatch} pause={pauseStopWatch} boardStatusSwitcher={boardStatusSwitcher} gameStatus={gameWin}/>
       </header>
-      <section className={classNames("cards-container", { boardStatusInGame: status, boardStatusBeforeGame: !boardStatus})}>
+      <section className={classNames("cards-container", { boardStatusInGame: status, boardStatusBeforeGame: boardStatus})}>
         {cardsData.map((card, index) => {
           return (
             <Card

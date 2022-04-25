@@ -21,10 +21,11 @@ body {
   flex-wrap: wrap;
   margin: 40px 0 0 0;
   gap: 30px;
+  pointer-events: none;
 }
 
 .boardStatusBeforeGame {
-  pointer-events: none;
+  pointer-events: auto  ;
 }
 
 .boardStatusInGame {
