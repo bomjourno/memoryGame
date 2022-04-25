@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {useEffect, useState} from 'react';
 import './Card.css'
 
-export function Card({ card, count, setCount, handleCardClick}) {
+export function Card({gameInProgress, card, count, setCount, handleCardClick }) {
 
   const [frontCard, setFrontCard] = useState(false)
   const USER_POKE_COUNT = 1;
@@ -23,6 +23,8 @@ export function Card({ card, count, setCount, handleCardClick}) {
     }
   }, [count])
 
+
+
   function handleClick() {
     handleCardClick(card.alt)
     setFrontCard(!frontCard);
@@ -30,7 +32,7 @@ export function Card({ card, count, setCount, handleCardClick}) {
   }
 
   return (
-    <div className={classNames('hidden', {foundCard: card.front})}>
+    <div className={classNames('hidden', {foundCard: card.front, startGame: !gameInProgress})}>
       <img onClick={()=> {
         handleClick();
       }} className={classNames('card-item', {show: frontCard, disabled: card.front, cursor: frontCard})} id={card.id} src={card.src} alt={card.alt} />

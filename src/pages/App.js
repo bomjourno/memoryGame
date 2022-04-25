@@ -7,11 +7,17 @@ import { useSwitcher } from "../components/hooks/useSwitcher";
 import classNames from "classnames";
 
 function App() {
+  const ONE_FOUND_CARD = 1;
+  const ALL_CARDS = 16;
   const MAX_USER_POKE_COUNT = 2;
   const UNLOCK_TIME_TO_POKE = 4000;
 
   //общий стейт для всей доски (block or unblock board)
   const [boardStatus, boardEnable, boardDisable, boardStatusSwitcher] = useSwitcher(true)
+
+  //статус игры
+  const [gameWin, setGameWin] = useState(false)
+  const [gameInProgress, setGameInProgress] = useState(false)
 
   //стартовый массив карточек на доске
   const [cardsData, setCardsData] = useState([]);
@@ -21,8 +27,15 @@ function App() {
     setCardsData(shuffle(startCards));
   }, []);
 
+  useEffect(() => {
+    setCardsData(shuffle(startCards));
+  }, [gameWin])
+
+  //управление секундомером
+  const [stopWatchIsActive, startStopWatch, pauseStopWatch, switchStopWatch] = useSwitcher(false);
+
   //через count считаем количество тыков на карты.
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = useState(0);
 
   //После двух тыков блокируем "тык" на другие карты посредством status
   const [status, statusTrue, statusfalse, switcher] = useSwitcher(false)
@@ -68,18 +81,47 @@ function App() {
         ? blockFoundCard()
         : setUserSelectedCard([]);
     }
-    console.log(userSelectedCard);
   }, [userSelectedCard]);
+
+  //победа, возвращаем все в исходное состояние
+  useEffect(() => {
+    let foundCards = 0
+    cardsData.forEach(card => {
+      if(card.front) {
+        foundCards += ONE_FOUND_CARD
+      }
+    })
+    if(foundCards === ALL_CARDS) {
+      setGameWin(!gameWin)
+    }
+  }, [status])
+
+  useEffect(() => {
+    if(gameWin) {
+      setCardsData((prev) => {
+        prev.forEach(card => {
+          card.front = false;
+        })
+        return prev;
+      });
+      switchStopWatch();
+    }
+  }, [gameWin])
+
+  useEffect(() => {
+    setGameInProgress(!gameInProgress)
+  }, [stopWatchIsActive])
 
   return (
     <div className="main">
       <header>
-        <Timer boardStatusSwitcher={boardStatusSwitcher} />
+        <Timer setGameStatus={setGameWin} stopWatch={stopWatchIsActive} start={startStopWatch} pause={pauseStopWatch} boardStatusSwitcher={boardStatusSwitcher} gameStatus={gameWin}/>
       </header>
       <section className={classNames("cards-container", { boardStatusInGame: status, boardStatusBeforeGame: boardStatus})}>
         {cardsData.map((card, index) => {
           return (
             <Card
+              gameInProgress={gameInProgress}
               card={card}
               handleCardClick={handleCardClick}
               count={count}
@@ -89,6 +131,7 @@ function App() {
           );
         })}
       </section>
+
     </div>
   );
 }
