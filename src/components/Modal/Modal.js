@@ -6,7 +6,7 @@ import closeBtnImage from "../../images/closeBtn.svg";
 export const Modal = ({ setGameStatus, gameStatus, result, setResults, time, saveResult }) => {
   const [value, setValue] = useState("");
   const boardResults = JSON.parse(localStorage.getItem("memory-game-results"));
-  boardResults.sort((a, b) => a.time - b.time)
+  // boardResults.sort((a, b) => a.time - b.time)
   // console.log(boardResults)
 
   function submitHandler(evt) {
@@ -61,7 +61,7 @@ export const Modal = ({ setGameStatus, gameStatus, result, setResults, time, sav
             <h1 className="modal-title">Три лучших результата</h1>
             <div className="modal-container">
               <ul className="result-board">
-                { localStorage.getItem('memory-game-results') ? boardResults.slice(0, 3).map((result, index) => {
+                { localStorage.getItem('memory-game-results') ? boardResults.sort((a, b) => a.time - b.time).slice(0, 3).map((result, index) => {
                   return <li key={index} className="result-item">{result.name}<span>{result.time}</span></li>;
                 }) : <p className="no-results">Нет результатов</p>}
               </ul>
