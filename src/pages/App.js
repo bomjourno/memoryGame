@@ -13,7 +13,7 @@ function App() {
   const UNLOCK_TIME_TO_POKE = 4000;
 
   //общий стейт для всей доски (block or unblock board)
-  const [boardStatus, boardEnable, boardDisable, boardStatusSwitcher] = useSwitcher(true)
+  const [boardStatus, boardEnable, boardDisable, boardStatusSwitcher] = useSwitcher(false)
 
   //статус игры
   const [gameWin, setGameWin] = useState(false)
@@ -117,7 +117,7 @@ function App() {
       <header>
         <Timer setGameStatus={setGameWin} stopWatch={stopWatchIsActive} start={startStopWatch} pause={pauseStopWatch} boardStatusSwitcher={boardStatusSwitcher} gameStatus={gameWin}/>
       </header>
-      <section className={classNames("cards-container", { boardStatusInGame: status, boardStatusBeforeGame: boardStatus})}>
+      <section className={classNames("cards-container", { boardStatusInGame: status, boardStatusBeforeGame: !boardStatus})}>
         {cardsData.map((card, index) => {
           return (
             <Card
