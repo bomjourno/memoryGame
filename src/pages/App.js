@@ -13,7 +13,7 @@ function App() {
   const UNLOCK_TIME_TO_POKE = 4000;
 
   //общий стейт для всей доски (block or unblock board)
-  const [boardStatus, boardEnable, boardDisable, boardStatusSwitcher] = useSwitcher(false)
+  const [boardStatus, boardEnable, boardDisable, boardStatusSwitcher] = useSwitcher(true)
 
   //статус игры
   const [gameWin, setGameWin] = useState(false)
