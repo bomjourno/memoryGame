@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/memoryGame/static/css/main.7f875033.css",
+    "main.js": "/memoryGame/static/js/main.e408eb6f.js",
+    "static/media/albert-einstein.png": "/memoryGame/static/media/albert-einstein.de7f1de16c5b57518a15.png",
+    "static/media/cpnjack.png": "/memoryGame/static/media/cpnjack.fe5bdf1cb1479d8d322a.png",
+    "static/media/spiderman.png": "/memoryGame/static/media/spiderman.ce3d8f2983f5a33abcdb.png",
+    "static/media/deadpool.png": "/memoryGame/static/media/deadpool.b92cbad750b1cceea8a2.png",
+    "static/media/jobs.png": "/memoryGame/static/media/jobs.9a4761ec487aa73278d8.png",
+    "static/media/ninja.png": "/memoryGame/static/media/ninja.80fbc35798001a855a0f.png",
+    "static/media/neo.png": "/memoryGame/static/media/neo.9fd3bba54b7f21de48bd.png",
+    "static/media/play.png": "/memoryGame/static/media/play.6a49b567966c99e42051.png",
+    "static/media/batman.png": "/memoryGame/static/media/batman.20ac3f0de42e9e7b86b7.png",
+    "static/media/pause.png": "/memoryGame/static/media/pause.05120b8d811e0e5afd80.png",
+    "index.html": "/memoryGame/index.html",
+    "static/media/closeBtn.svg": "/memoryGame/static/media/closeBtn.039f1f5203f653b4bacde5e34ee2810b.svg",
+    "main.7f875033.css.map": "/memoryGame/static/css/main.7f875033.css.map",
+    "main.e408eb6f.js.map": "/memoryGame/static/js/main.e408eb6f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7f875033.css",
+    "static/js/main.e408eb6f.js"
+  ]
+}
