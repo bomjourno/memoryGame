@@ -1,0 +1,36 @@
+.card-item {
+  opacity: 0;
+  width: 100%;
+  /* border: 1px solid black; */
+  border-radius: 10px;
+  transition: opacity .5s;
+  cursor: pointer;
+}
+
+.show {
+  opacity: 1;
+}
+
+.hidden {
+  width: 85px;
+  height: 85px;
+  border: 1px solid rgb(148, 143, 143);
+  border-radius: 10px;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.foundCard {
+  background-color: gray;
+}
+
+/* блокировки карты после ее выбора, чтобы нельзя было выбрать одну и ту же карту 2раза*/
+.cursor {
+  pointer-events: none;
+}
+
+.startGame {
+  border: 1px solid black;
+}
