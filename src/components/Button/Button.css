@@ -47,7 +47,7 @@
 }
 
 @media (max-width:500px) {
-  .button_pause {
+  .button_results {
     grid-area: results;
   }
 }

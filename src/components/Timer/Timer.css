@@ -30,7 +30,7 @@
     grid-template-areas:
     'start pause results'
     'time time time';
-    margin: 30px 0 0 0;
+    margin: 50px 0 0 0;
     padding: 10px;
 
   }
