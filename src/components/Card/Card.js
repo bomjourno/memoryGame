@@ -27,7 +27,6 @@ export function Card({
   useEffect(() => {
     if (count === MAX_USER_POKE_COUNT) {
       setCount(0); //обнуляем количество "тыков" на карту
-      // debugger
     }
   }, [count]);
 
