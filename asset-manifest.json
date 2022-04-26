@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/memoryGame/static/css/main.f9a3ff4f.css",
-    "main.js": "/memoryGame/static/js/main.07f36cba.js",
+    "main.css": "/memoryGame/static/css/main.99870798.css",
+    "main.js": "/memoryGame/static/js/main.8cfec4af.js",
     "static/media/albert-einstein.png": "/memoryGame/static/media/albert-einstein.de7f1de16c5b57518a15.png",
     "static/media/cpnjack.png": "/memoryGame/static/media/cpnjack.fe5bdf1cb1479d8d322a.png",
     "static/media/spiderman.png": "/memoryGame/static/media/spiderman.ce3d8f2983f5a33abcdb.png",
@@ -14,11 +14,11 @@
     "static/media/pause.png": "/memoryGame/static/media/pause.05120b8d811e0e5afd80.png",
     "index.html": "/memoryGame/index.html",
     "static/media/closeBtn.svg": "/memoryGame/static/media/closeBtn.039f1f5203f653b4bacde5e34ee2810b.svg",
-    "main.f9a3ff4f.css.map": "/memoryGame/static/css/main.f9a3ff4f.css.map",
-    "main.07f36cba.js.map": "/memoryGame/static/js/main.07f36cba.js.map"
+    "main.99870798.css.map": "/memoryGame/static/css/main.99870798.css.map",
+    "main.8cfec4af.js.map": "/memoryGame/static/js/main.8cfec4af.js.map"
   },
   "entrypoints": [
-    "static/css/main.f9a3ff4f.css",
-    "static/js/main.07f36cba.js"
+    "static/css/main.99870798.css",
+    "static/js/main.8cfec4af.js"
   ]
 }
