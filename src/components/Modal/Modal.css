@@ -91,3 +91,32 @@
 .no-results {
   margin: 0;
 }
+
+@media (max-width:500px) {
+  .modal-body {
+    padding: 1rem;
+    width: 250px;
+  }
+}
+
+@media (max-width:500px) {
+  .result-item {
+    font-size: 16px;
+  }
+}
+
+@media (max-width:500px) {
+  .modal-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width:500px) {
+  .modal-close {
+    position: absolute;
+    top: -35px;
+    right: 0px;
+    cursor: pointer;
+    width: 8%;
+  }
+}
