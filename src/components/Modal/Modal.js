@@ -1,32 +1,44 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Modal.css";
 import closeBtnImage from "../../images/closeBtn.svg";
+import { boardResults } from "../../utils/constants";
 
-export const Modal = ({ setGameStatus, gameStatus, result, setResults, time, saveResult }) => {
+export const Modal = ({
+  gameStatus,
+  switchGameWin,
+  resultsTable,
+  switchShowResultsTable,
+  time,
+  saveResult,
+}) => {
   const [value, setValue] = useState("");
-  const boardResults = JSON.parse(localStorage.getItem("memory-game-results"));
-  // boardResults.sort((a, b) => a.time - b.time)
-  // console.log(boardResults)
+
 
   function submitHandler(evt) {
     evt.preventDefault();
     if (value.trim()) {
       saveResult(value, time);
-      setValue('')
-      setGameStatus(!gameStatus)
+      setValue("");
+      switchGameWin()
     }
-    setResults(!result)
-
+    switchShowResultsTable();
   }
+
+  //открываем модалку после победы
+  useEffect(() => {
+    if (gameStatus) {
+      switchShowResultsTable();
+    }
+  }, [gameStatus]);
 
   return (
     <React.Fragment>
       {gameStatus ? (
-        <div className={classNames("modal", { open: result })}>
+        <div className={classNames("modal", { open: resultsTable })}>
           <form className="modal-body" onSubmit={submitHandler}>
             <img
-              onClick={() => setResults(!result)}
+              onClick={switchShowResultsTable}
               src={closeBtnImage}
               className="modal-close"
             />
@@ -51,19 +63,31 @@ export const Modal = ({ setGameStatus, gameStatus, result, setResults, time, sav
           </form>
         </div>
       ) : (
-        <div className={classNames("modal", { open: result })}>
+        <div className={classNames("modal", { open: resultsTable })}>
           <form className="modal-body" onSubmit={submitHandler}>
             <img
-              onClick={() => setResults(!result)}
+              onClick={switchShowResultsTable}
               src={closeBtnImage}
               className="modal-close"
             />
             <h1 className="modal-title">Три лучших результата</h1>
             <div className="modal-container">
               <ul className="result-board">
-                { localStorage.getItem('memory-game-results') ? boardResults.sort((a, b) => a.time - b.time).slice(0, 3).map((result, index) => {
-                  return <li key={index} className="result-item">{result.name}<span>{result.time}</span></li>;
-                }) : <p className="no-results">Нет результатов</p>}
+                {localStorage.getItem("memory-game-results") ? (
+                  boardResults
+                    .sort((a, b) => a.time - b.time)
+                    .slice(0, 3)
+                    .map((result, index) => {
+                      return (
+                        <li key={index} className="result-item">
+                          {result.name}
+                          <span>{result.time}</span>
+                        </li>
+                      );
+                    })
+                ) : (
+                  <p className="no-results">Нет результатов</p>
+                )}
               </ul>
             </div>
           </form>

@@ -4,20 +4,15 @@ import { Timer } from "../components/Timer.js/Timer";
 import { shuffle } from "../utils/shuffle";
 import { startCards } from "../utils/start-cards";
 import { useSwitcher } from "../components/hooks/useSwitcher";
+import { MAX_USER_POKE_COUNT, UNLOCK_TIME_TO_POKE } from "../utils/constants";
 import classNames from "classnames";
 
 function App() {
-  const ONE_FOUND_CARD = 1;
-  const ALL_CARDS = 16;
-  const MAX_USER_POKE_COUNT = 2;
-  const UNLOCK_TIME_TO_POKE = 1000;
+  //статус игры
+  const [isGameWin, , , switchGameWin] = useSwitcher(false);
 
   //общий стейт для всей доски (block or unblock board)
-  const [boardStatus, boardEnable, boardDisable, boardStatusSwitcher] = useSwitcher(true)
-
-  //статус игры
-  const [gameWin, setGameWin] = useState(false)
-  const [gameInProgress, setGameInProgress] = useState(false)
+  const [isEnableBoard, , , switchEnableBoard] = useSwitcher(true);
 
   //стартовый массив карточек на доске
   const [cardsData, setCardsData] = useState([]);
@@ -27,31 +22,33 @@ function App() {
     setCardsData(shuffle(startCards));
   }, []);
 
+  //Если пользователь выиграл, то перемешать карты снова
   useEffect(() => {
     setCardsData(shuffle(startCards));
-  }, [gameWin])
+  }, [isGameWin]);
 
   //управление секундомером
-  const [stopWatchIsActive, startStopWatch, pauseStopWatch, switchStopWatch] = useSwitcher(false);
+  const [stopWatchIsActive, startStopWatch, pauseStopWatch, switchStopWatch] =
+    useSwitcher(false);
 
   //через count считаем количество тыков на карты.
   const [count, setCount] = useState(0);
 
-  //После двух тыков блокируем "тык" на другие карты посредством status
-  const [status, statusTrue, statusfalse, switcher] = useSwitcher(false)
+  //После двух тыков блокируем "тык" на другие карты посредством canChooseCards
+  const [canChooseCards, , , switchChooseCards] = useSwitcher(false);
 
   //блокируем возможность тыка на другие карты
   useEffect(() => {
     if (count === MAX_USER_POKE_COUNT) {
-      switcher();
+      switchChooseCards();
     }
   }, [count]);
 
   useEffect(() => {
-    if (status) {
-      setTimeout(() => switcher(), UNLOCK_TIME_TO_POKE);
+    if (canChooseCards) {
+      setTimeout(() => switchChooseCards(), UNLOCK_TIME_TO_POKE);
     }
-  }, [status]);
+  }, [canChooseCards]);
 
   // добавляем в новый массив те карты, которые Выбрал пользователь
   const [userSelectedCard, setUserSelectedCard] = useState([]);
@@ -61,15 +58,16 @@ function App() {
   }
 
   // блокируем найденные карты
-  function blockFoundCard() {
+  function blockFoundCards() {
     setCardsData((prev) => {
-      const foundCard = prev.find((card) => card.alt === userSelectedCard[0].name
+      const foundCard = prev.find(
+        (card) => card.alt === userSelectedCard[0].name
       );
-      prev.forEach(card => {
-        if(card.alt === foundCard.alt) {
+      prev.forEach((card) => {
+        if (card.alt === foundCard.alt) {
           card.front = true;
         }
-      })
+      });
       return prev;
     });
     setUserSelectedCard([]);
@@ -78,46 +76,55 @@ function App() {
   useEffect(() => {
     if (userSelectedCard.length === MAX_USER_POKE_COUNT) {
       userSelectedCard[0].name === userSelectedCard[1].name
-        ? blockFoundCard()
+        ? blockFoundCards()
         : setUserSelectedCard([]);
     }
   }, [userSelectedCard]);
 
   //победа, возвращаем все в исходное состояние
   useEffect(() => {
-    let foundCards = 0
-    cardsData.forEach(card => {
-      if(card.front) {
-        foundCards += ONE_FOUND_CARD
-      }
-    })
-    if(foundCards === ALL_CARDS) {
-      setGameWin(!gameWin)
+    const allCardsIsFound = cardsData.every((card) => card.front);
+    if (allCardsIsFound) {
+      switchGameWin();
     }
-  }, [status])
+  }, [canChooseCards]);
 
   useEffect(() => {
-    if(gameWin) {
+    if (isGameWin) {
       setCardsData((prev) => {
-        prev.forEach(card => {
+        prev.forEach((card) => {
           card.front = false;
-        })
+        });
         return prev;
       });
       switchStopWatch();
     }
-  }, [gameWin])
+  }, [isGameWin]);
 
-  useEffect(() => {
-    setGameInProgress(!gameInProgress)
-  }, [stopWatchIsActive])
+   //Следить в процессе ли игра
+   const [gameInProgress, setGameInProgress] = useState(false);
+
+   useEffect(() => {
+     setGameInProgress(!gameInProgress);
+   }, [stopWatchIsActive]);
 
   return (
     <div className="main">
       <header>
-        <Timer setGameStatus={setGameWin} stopWatch={stopWatchIsActive} start={startStopWatch} pause={pauseStopWatch} boardStatusSwitcher={boardStatusSwitcher} gameStatus={gameWin}/>
+        <Timer
+          stopWatch={stopWatchIsActive}
+          start={startStopWatch}
+          pause={pauseStopWatch}
+          switchEnableBoard={switchEnableBoard}
+          gameStatus={isGameWin}
+          switchGameWin={switchGameWin}
+        />
       </header>
-      <section className={classNames("cards-container", { boardStatusInGame: status, boardStatusBeforeGame: boardStatus})}>
+      <section
+        className={classNames("cards-container", {
+          disableBoardInGame: canChooseCards, enableBoard: isEnableBoard
+        })}
+      >
         {cardsData.map((card, index) => {
           return (
             <Card
@@ -131,7 +138,6 @@ function App() {
           );
         })}
       </section>
-
     </div>
   );
 }

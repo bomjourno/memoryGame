@@ -1,67 +1,69 @@
 import React, { useState, useEffect } from "react";
-import {Button} from "../Button/Button";
-import {Modal} from "../Modal/Modal";
-import './Timer.css'
+import { Button } from "../Button/Button";
+import { useSwitcher } from "../hooks/useSwitcher";
+import { Modal } from "../Modal/Modal";
+import { ONE_SECOND_IN_MILLISECONDS, ONE_SECOND } from "../../utils/constants";
+import "./Timer.css";
 
-export const Timer = ({setGameStatus, boardStatusSwitcher, stopWatch, start, pause, gameStatus }) => {
+export const Timer = ({
+  switchGameWin,
+  switchEnableBoard,
+  stopWatch,
+  start,
+  pause,
+  gameStatus,
+}) => {
   const [time, setTime] = useState(0);
-  const ONE_SECOND = 1;
-  const ONE_SECOND_IN_MILLISECONDS = 1000
+  const [resultsTable, , , switchShowResultsTable] = useSwitcher(false);
+
+  const hours = ("0" + (Math.floor(time / 3600) % 60)).slice(-2);
+  const minutes = ("0" + (Math.floor(time / 60) % 60)).slice(-2);
+  const seconds = ("0" + Math.floor(time % 60)).slice(-2);
 
   useEffect(() => {
-    boardStatusSwitcher();
-  }, [stopWatch])
+    switchEnableBoard();
+  }, [stopWatch]);
 
   useEffect(() => {
     let timerId = null;
-    if(stopWatch) {
+    if (stopWatch) {
       timerId = setInterval(() => {
-        setTime(time => time + ONE_SECOND)
-      }, ONE_SECOND_IN_MILLISECONDS)
+        setTime((time) => time + ONE_SECOND);
+      }, ONE_SECOND_IN_MILLISECONDS);
     } else {
-      clearInterval(timerId)
+      clearInterval(timerId);
     }
     return () => {
-      clearInterval(timerId)
-    }
+      clearInterval(timerId);
+    };
   }, [time, stopWatch]);
 
-  //сохраняем результат
-  useEffect(() => {
-    if(gameStatus) {
-      // localStorage.setItem(`result№${date.getSeconds()}`, time.toString())
-      setResults(!results)
-      // setTime(0)
-    }
-  }, [gameStatus])
-
-  const [results, setResults] = useState(false)
-
-  function showResults() {
-    setResults(!results)
-  }
-
-  function saveResult (name, time) {
+  function saveResult(name, time) {
     let results = [];
-    if(localStorage.getItem('memory-game-results')) {
-      results = JSON.parse(localStorage.getItem('memory-game-results'))
+    if (localStorage.getItem("memory-game-results")) {
+      results = JSON.parse(localStorage.getItem("memory-game-results"));
     }
-    results.push({name, time})
-    localStorage.setItem('memory-game-results', JSON.stringify(results))
-    setTime(0)
+    results.push({ name, time });
+    localStorage.setItem("memory-game-results", JSON.stringify(results));
+    setTime(0);
   }
 
   return (
     <div className="header">
-      <Button gameStatus={gameStatus} handleClick={start} button={'start'} />
-      <Button gameStatus={gameStatus} handleClick={pause} button={'pause'} />
-      <Button handleClick={showResults} button={'results'} />
+      <Button gameStatus={gameStatus} handleClick={start} button={"start"} />
+      <Button gameStatus={gameStatus} handleClick={pause} button={"pause"} />
+      <Button handleClick={switchShowResultsTable} button={"results"} />
       <div className="time-container">
-        <span>{("0" + (Math.floor(time / 3600) % 60)).slice(-2)}</span>:
-        <span>{("0" + (Math.floor(time / 60) % 60)).slice(-2)}</span>:
-        <span>{("0" + Math.floor(time % 60)).slice(-2)}</span>
+        <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
       </div>
-      <Modal setGameStatus={setGameStatus} gameStatus={gameStatus} saveResult={saveResult} time={time} result={results} setResults={setResults}/>
+      <Modal
+        switchGameWin={switchGameWin}
+        gameStatus={gameStatus}
+        saveResult={saveResult}
+        time={time}
+        resultsTable={resultsTable}
+        switchShowResultsTable={switchShowResultsTable}
+      />
     </div>
   );
 };
