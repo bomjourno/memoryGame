@@ -33,3 +33,21 @@
   pointer-events: none;
   background-color: gray;
 }
+
+@media (max-width:500px) {
+  .button_start {
+    grid-area: start;
+  }
+}
+
+@media (max-width:500px) {
+  .button_pause {
+    grid-area: pause;
+  }
+}
+
+@media (max-width:500px) {
+  .button_pause {
+    grid-area: results;
+  }
+}
