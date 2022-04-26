@@ -48,6 +48,13 @@ export const Timer = ({
     setTime(0);
   }
 
+  //открываем модалку после победы
+  useEffect(() => {
+    if (gameStatus) {
+      switchShowResultsTable();
+    }
+  }, [gameStatus]);
+
   return (
     <div className="header">
       <Button gameStatus={gameStatus} handleClick={start} button={"start"} />

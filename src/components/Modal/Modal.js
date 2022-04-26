@@ -24,13 +24,6 @@ export const Modal = ({
     switchShowResultsTable();
   }
 
-  //открываем модалку после победы
-  useEffect(() => {
-    if (gameStatus) {
-      switchShowResultsTable();
-    }
-  }, [gameStatus]);
-
   return (
     <React.Fragment>
       {gameStatus ? (
@@ -69,7 +62,7 @@ export const Modal = ({
               src={closeBtnImage}
               className="modal-close"
             />
-            <h1 className="modal-title">Три лучших результата</h1>
+            <h1 className="modal-title">Лучшие результаты</h1>
             <div className="modal-container">
               <ul className="result-board">
                 {localStorage.getItem("memory-game-results") ? (

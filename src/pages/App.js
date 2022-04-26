@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../components/Card/Card";
-import { Timer } from "../components/Timer.js/Timer";
+import { Timer } from "../components/Timer/Timer";
 import { shuffle } from "../utils/shuffle";
 import { startCards } from "../utils/start-cards";
 import { useSwitcher } from "../components/hooks/useSwitcher";
-import { MAX_USER_POKE_COUNT, UNLOCK_TIME_TO_POKE, ALL_CARDS } from "../utils/constants";
+import { MAX_USER_POKE_COUNT, UNLOCK_TIME_TO_POKE } from "../utils/constants";
 import classNames from "classnames";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
   const [isGameWin, , , switchGameWin] = useSwitcher(false);
 
   //общий стейт для всей доски (block or unblock board)
-  const [isEnableBoard, , , switchEnableBoard] = useSwitcher(true);
+  const [isEnableBoard, , , switchEnableBoard] = useSwitcher(false);
 
   //стартовый массив карточек на доске
   const [cardsData, setCardsData] = useState([]);
@@ -83,12 +83,12 @@ function App() {
 
   //победа, возвращаем все в исходное состояние
   useEffect(() => {
-    const foundCards = cardsData.filter(card => card.front);
-    const gameWin = foundCards.length === ALL_CARDS;
+    const gameWin = cardsData.every(card => card.front);
     if (gameWin) {
       switchGameWin();
     }
   }, [canChooseCards]);
+
 
   useEffect(() => {
     if (isGameWin) {
