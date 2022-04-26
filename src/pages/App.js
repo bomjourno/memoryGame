@@ -4,7 +4,7 @@ import { Timer } from "../components/Timer.js/Timer";
 import { shuffle } from "../utils/shuffle";
 import { startCards } from "../utils/start-cards";
 import { useSwitcher } from "../components/hooks/useSwitcher";
-import { MAX_USER_POKE_COUNT, UNLOCK_TIME_TO_POKE } from "../utils/constants";
+import { MAX_USER_POKE_COUNT, UNLOCK_TIME_TO_POKE, ALL_CARDS } from "../utils/constants";
 import classNames from "classnames";
 
 function App() {
@@ -83,8 +83,9 @@ function App() {
 
   //победа, возвращаем все в исходное состояние
   useEffect(() => {
-    const allCardsIsFound = cardsData.every((card) => card.front);
-    if (allCardsIsFound) {
+    const foundCards = cardsData.filter(card => card.front);
+    const gameWin = foundCards.length === ALL_CARDS;
+    if (gameWin) {
       switchGameWin();
     }
   }, [canChooseCards]);

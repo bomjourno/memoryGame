@@ -2,7 +2,6 @@ import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import "./Modal.css";
 import closeBtnImage from "../../images/closeBtn.svg";
-import { boardResults } from "../../utils/constants";
 
 export const Modal = ({
   gameStatus,
@@ -13,7 +12,7 @@ export const Modal = ({
   saveResult,
 }) => {
   const [value, setValue] = useState("");
-
+  const boardResults = JSON.parse(localStorage.getItem("memory-game-results"));
 
   function submitHandler(evt) {
     evt.preventDefault();
