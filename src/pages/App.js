@@ -12,7 +12,7 @@ function App() {
   const [isGameWin, , , switchGameWin] = useSwitcher(false);
 
   //общий стейт для всей доски (block or unblock board)
-  const [isEnableBoard, , , switchEnableBoard] = useSwitcher(false);
+  const [isEnableBoard, , , switchEnableBoard] = useSwitcher(true);
 
   //стартовый массив карточек на доске
   const [cardsData, setCardsData] = useState([]);
